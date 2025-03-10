@@ -1,11 +1,12 @@
-using BasicCRUDOperation.Data;
+﻿using BasicCRUDOperation.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Add DbContext
+// Add DbContext      
+//sql defendency inject  যে সকল ক্লাস এর constructor এ AppDbContext থাকবে সেগুলো এই AppDbContext থেকে ইনস্ট্যান্স পাবে
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
