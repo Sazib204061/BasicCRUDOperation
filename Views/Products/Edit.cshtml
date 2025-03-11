@@ -1,11 +1,11 @@
 ﻿@model Product
 
 @{
-    ViewData["Title"] = "Create Product";
+    ViewData["Title"] = "Edit Product";
 }
 
 <div>
-    <form asp-action="Create" method="post">
+    <form asp-action="Edit" method="post">
         @* <div class="form-group"> *@
         @*     <label asp-for="Id">Id</label> *@
         @*     <input class="form-control" asp-for="Id" /> *@
@@ -20,7 +20,7 @@
             <span asp-validation-for="Price" class="text-danger"></span>   @*for validation*@
         </div>
         <div class="my-2">
-            <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-success" type="submit">Update</button>
         </div>
     </form>
 </div>

@@ -13,6 +13,8 @@ namespace BasicCRUDOperation.Models
         public string Name { get; set; }
         //[DisplayName("Product Price")]
 
+        [Range(1,5000)]  //it is show default error message
+        //[Range(1, 5000, ErrorMessage ="Price must be between 1 to 5000.")]  // if we want to show custom error message
         public decimal Price { get; set; }
     }
 }

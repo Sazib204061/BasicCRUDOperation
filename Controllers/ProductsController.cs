@@ -36,10 +36,51 @@ namespace BasicCRUDOperation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
-            await _db.Products.AddAsync(product);  //Asynchronusly add all data to Products table
+            if (ModelState.IsValid)      //for field validation
+            {
+                await _db.Products.AddAsync(product);  //Asynchronusly add all data to Products table
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");  //here we stay same controller that's why does not need to specify controller name
+                                                   //return RedirectToAction("Action_Name", "Controller_Name");
+            }
+            return View("Create");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _db.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound(id);
+            }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            _db.Update(product);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index");  //here we stay same controller that's why does not need to specify controller name
-            //return RedirectToAction("Action_Name", "Controller_Name");
+            return RedirectToAction("Index");
+        }
+
+        //for deletion
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (product == null) 
+            {
+                return NotFound(id);
+            }
+
+            _db.Products.Remove(product);
+
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }
